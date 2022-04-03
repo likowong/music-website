@@ -77,7 +77,7 @@ import { ref, reactive, getCurrentInstance } from "vue";
 import * as echarts from "echarts";
 import { HttpManager } from "@/api/index";
 
-const ctx = getCurrentInstance().ctx;
+const { proxy } = getCurrentInstance();
 const userCount = ref(0);
 const songCount = ref(0);
 const singerCount = ref(0);
@@ -173,7 +173,7 @@ HttpManager.getAllUser().then((res) => {
   userSex.series[0].data.push(setSex(0, res));
   userSex.series[0].data.push(setSex(1, res));
 
-  const userSexChart = echarts.init(ctx.$refs.userSex);
+  const userSexChart = echarts.init(proxy.$refs.userSex);
   userSexChart.setOption(userSex);
 });
 
@@ -189,7 +189,7 @@ HttpManager.getSongList().then((res) => {
       }
     }
   }
-  const songStyleChart = echarts.init(ctx.$refs.songStyle);
+  const songStyleChart = echarts.init(proxy.$refs.songStyle);
   songStyleChart.setOption(songStyle);
 });
 
@@ -197,7 +197,7 @@ HttpManager.getAllSinger().then((res) => {
   singerCount.value = res.length;
   singerSex.series[0].data.push(setSex(0, res));
   singerSex.series[0].data.push(setSex(1, res));
-  const singerSexChart = echarts.init(ctx.$refs.singerSex);
+  const singerSexChart = echarts.init(proxy.$refs.singerSex);
   singerSexChart.setOption(singerSex);
 
   for (let item of res) {
@@ -207,7 +207,7 @@ HttpManager.getAllSinger().then((res) => {
       }
     }
   }
-  const countryChart = echarts.init(ctx.$refs.country);
+  const countryChart = echarts.init(proxy.$refs.country);
   countryChart.setOption(country);
 });
 </script>
